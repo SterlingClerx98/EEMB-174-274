@@ -1,0 +1,68 @@
+---
+title: 'Lab 1: Pooled Covid Testing'
+author: "Stephen R. Proulx"
+date: "11/19/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages , echo=FALSE , include=FALSE}
+library(tidyverse)
+```
+
+
+## Problem
+
+We want to reduce the number of pcr tests. Strategy is to pool *k* people and test as a pool. If positive, then re-test all *k*. So each pool that is positive generates *k+1* tests and a pool that is negative generates *1* test.
+
+```{r generate_samples}
+k=10
+pos_rate=0.05
+samps=10000
+pools=tibble(positive=rbinom(n=samps,size=k,prob=pos_rate) )
+
+ggplot(data=pools,aes(x=positive))+geom_histogram( binwidth = 1)
+```
+
+Now we need to count up how many tests we have to do, it is just the number of pools plus the number of pools with any positive multiplied by *k*.
+```{r count_tests}
+pools <- pools %>% mutate(retest = sign(positive) , tests=1+retest*k)
+
+mean(pools$tests)/k
+```
+
+Make a function to run a specific value of *k* and return the average number of tests per person.
+
+```{r make_function}
+calc_tests <- function(k){
+pos_rate=0.05
+samps=10000
+pools=tibble(positive=rbinom(n=samps,size=k,prob=pos_rate) )
+
+pools <- pools %>% mutate(retest = sign(positive) , tests=1+retest*k)
+
+output<-mean(pools$tests)/k
+
+output
+
+}
+
+```
+
+
+Make a new tibble that contains the pool size *k* for each replicate and does each replicate 100 times. We look at values of *k* between 1 and 10, and then plot the output. I had to convert *k* to an integer to get geom_boxplot to work properly. 
+```{r compare_ks}
+keffects <- tibble(k=rep(seq(20),100))
+keffects <- keffects %>%
+  rowwise() %>%
+  mutate(ave_tests = calc_tests(k),int_k = as.integer(k)) 
+
+ggplot(data=keffects , aes(x=int_k, y=log(base=10,ave_tests) , group=int_k  ))+
+  geom_boxplot()
+
+```
+
+
