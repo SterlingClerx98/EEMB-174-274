@@ -1,0 +1,17 @@
+---
+title: "Homework 1"
+author: "Stephen R. Proulx"
+date: "12/27/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Bayesian Statistical Modeling Winter 2021
+# Homework, Week 1
+
+*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/14/2021. Submit homework to gradescope: *Link here*
+
+
+This will be a walk through of using the virtual machine and git.
