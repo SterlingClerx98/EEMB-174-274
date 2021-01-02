@@ -1,0 +1,51 @@
+---
+title: "Lab 4"
+author: "Stephen R. Proulx"
+date: "12/27/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rethinking)
+```
+# Bayesian Statistical Modeling Winter 2021
+# Lab Exercise, Week 4
+# 1/28/2021
+
+*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself.   This assignment is due on Thursday, 2/4/2021. Submit homework to gradescope: *Link here*
+
+## Multiple Regression 
+Fox dataset 
+
+```{r}
+data("foxes")  
+d=as_tibble(foxes) 
+
+d$F <- standardize(d$avgfood)
+d$W <- standardize(d$weight)
+d$A <- standardize(d$area)
+d$G <- standardize(d$groupsize)
+```
+
+```{r}
+ggplot(data=d,aes(x=avgfood,y=weight,group=G,color=G)) +geom_point()
+```
+
+
+```{r}
+m3 <- quap(
+alist(
+W ~ dnorm( mu , sigma ),
+mu <- a + bF*F + bG*G,
+a ~ dnorm(0,0.2),
+c(bF,bG) ~ dnorm(0,0.5),
+sigma ~ dexp(1)
+), data=d )
+precis(m3)
+```
+
+
+compare actual weights with predicted weights from the model?
