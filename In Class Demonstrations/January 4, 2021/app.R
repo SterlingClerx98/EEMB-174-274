@@ -43,7 +43,7 @@ params <- params %>% expand(probSgNC, incidence) %>%
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Inferring disease state from individual testing data"),
+    titlePanel("Inferring covid status from cold like symptoms"),
 
     # Sidebar with a slider input for number of bins 
     sidebarLayout(
@@ -69,7 +69,7 @@ server <- function(input, output) {
                                           aes(x=probSgNC, y = probCgS)) + 
             geom_line()+
             scale_y_continuous( limits=c(0,1))+
-            labs( x="False Positive Rate" , y="Probability of covid given symptoms")
+            labs( x="Probability of colds among the non-covid population" , y="Probability of covid given symptoms")
         
     })
 }
