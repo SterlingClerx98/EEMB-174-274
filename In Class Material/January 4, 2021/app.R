@@ -25,6 +25,9 @@ probSgC <- 0.25 # probability of symptoms given covid
 # Prepare our dataframes 
 
 
+#Here probability of of Symptoms given NoCovid can be thought of as the 
+#probability that you actually have a cold and therefore have cold symptoms.
+#We assume that you can't both have covid and a cold.
 params <- tibble(
     probSgNC   = seq(from=0, to=1,by=0.01),
     incidence   = seq(from=0, to=1,by=0.01)
@@ -32,7 +35,8 @@ params <- tibble(
 
 # All possible combinations of false positive and incidence rate.
 params <- params %>% expand(probSgNC, incidence) %>%
-    mutate(probCgS = probSgC * incidence /(probSgC * incidence + probSgNC * (1-incidence)  ) ,
+    mutate(probCgS_noco = probSgC * incidence /(probSgC * incidence + probSgNC * (1-incidence)  ),
+           probCgS = (probSgC *(1-probSgNC)+probSgNC  ) * incidence /((probSgC *(1-probSgNC)+probSgNC ) * incidence + (probSgNC) * (1-incidence)  ),
            info = log(probCgS/incidence))
            
 
@@ -49,7 +53,7 @@ ui <- fluidPage(
     sidebarLayout(
         sidebarPanel(
             sliderInput("prevalence",
-                        "Disease prevalence in the population:",
+                        "Covid prevalence in the population:",
                         min = 0.01,
                         max = 0.99,
                         value = 0.5)
@@ -57,7 +61,7 @@ ui <- fluidPage(
 
         # Show a plot of the generated distribution
         mainPanel(
-           plotOutput("probPlot")
+           plotOutput("probPlot") 
         )
     )
 )
@@ -69,9 +73,9 @@ server <- function(input, output) {
                                           aes(x=probSgNC, y = probCgS)) + 
             geom_line()+
             scale_y_continuous( limits=c(0,1))+
-            labs( x="Probability of colds among the non-covid population" , y="Probability of covid given symptoms")
-        
+            labs( x="Probability of having a colds" , y="Probability of covid given symptoms")
     })
+      
 }
 
 # Run the application 
