@@ -9,14 +9,15 @@ output: pdf_document
 # Lab Exercise, Week 1
 # 1/6/2021
 
-*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself. This assignment is due on Thursday, 1/21/2021. You must answer all the problems, which are written in **bold**. Submit homework and labs to gradescope: https://www.gradescope.com/courses/221734
+*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself. This assignment is due on Thursday, 1/21/2021. You must answer all the problems, which are written in **bold**. 
 
+Submit homework and labs to gradescope: https://www.gradescope.com/courses/221734. It's easiest for us if you include both the pdf and the R Markdown file. To get the R Markdown onto your machine from the virtual machine it's easiest to copy-past the raw code into a text document and change the file extension to*.Rmd*. For the pdf you should be able to generate and download it from the virtual machine. If for some reason you can't create the pdf submitting just the R Markdown is fine. 
 
-These problems follow up on the example of estimating the percentage of the earth's surface that is water. But first we will briefly go over how to use R Markdown. Feel free to skip this section if you are already wise in its ways.
+This lab's problems follow up on the example of estimating the percentage of the earth's surface that is water. But first we will briefly go over how to use R Markdown. Feel free to skip this section if you are already wise in its ways.
 
 ## How to R Markdown (A very very short tutorial)
 
-R Markdown blends text with code. This is a great way to communicate understandable code to others (and to future you once you inevitably forget what you wrote). This is text right now. Below is a code chunk.
+R Markdown blends text with code. This is a great way to communicate understandable code to others (and to future -you once you inevitably forget what you wrote). This is text right now. Below is a code chunk.
 
 ```{r}
 print("Roses are red,")
@@ -76,6 +77,8 @@ knitr::opts_chunk$set(echo = TRUE)  # Set up knitr
 ```
 
 That's all you need to know for this lab. We've skipped a lot but we'll introduce more concepts throughout the class and labs. As you code try your best to use a consistent style. It makes things more readable for others and is a good habit as you go further into science. The R tidyverse style guide is at https://style.tidyverse.org/. As you have time you can check it out to learn how to space and indent things. Otherwise explore R Studio. Don't be afraid to press buttons and mess around. 
+
+A list of R Studio hotkeys is at https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts. If you memorize all of these you are officially a pro coder and instantly get a Ph.D in computer science.
 
 
 ## Lab Problem
@@ -282,11 +285,11 @@ calc_tests <- function(k) {
 We can run this function like so.
 
 ```{r run_function}
-calc_tests(2)  # Mean tests needed for when pools have three people each
+calc_tests(2)  # Mean tests needed for when pools have two people each
 ```
 #### Problem 5
 
-Try changing the pool size in the chunk above to see how the mean number of tests change. Why do the numbers change each time we run it? Why is *calc_tests(1)* not exactly equal to 1? 
+Try changing the pool size in the chunk above to see how the mean number of tests change. Why do the numbers change each time we run it? Why is *calc_tests(1)* a little above 1 and not exactly equal to 1? 
 
 *< Type your response here >*
 
@@ -317,7 +320,7 @@ ggplot(data = keffects, aes(x = k, y = ave_tests, group = poolsize)) +
 ```
 #### Problem 6
 
-Does the pooling strategy use less tests than the naive one-test-per-person strategy? If so, what is the best pool size *k* to use?
+Does the pooling strategy always use less tests than the naive one-test-per-person strategy? What is the best pool size *k* to use?
 
 *Type answer here* 
 
@@ -332,6 +335,6 @@ We don't have a good sense of how familiar people in this class are with R. So l
 
 #### Problem 8 (Optional)
 
-Modify the above code to try up to pool size 100. What do you see? (This will take a few minutes to run!)
+Modify the compare_ks code () to try up to pool size 100. What do you see? (This will take a few minutes to run!)
 
 *Type answer here*
