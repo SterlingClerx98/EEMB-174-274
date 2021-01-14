@@ -194,7 +194,7 @@ Repeat everything from 3M1 to here, but now alter the prior so that it is zero a
 # Answers:
 # Your posterior should look like a binomial distribution that's suddenly squashed to zero for p less than or equal to .5
 # The 90% HPDI is between 0.50 and 0.71
-# The probability of observing 8 waters in a sample of 15 is around 0.0634
+# The probability of observing 8 waters in a sample of 15 is around 0.1551
 ```
  
 ### 3M6
