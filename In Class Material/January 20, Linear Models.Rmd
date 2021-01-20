@@ -135,7 +135,7 @@ height_lik_f <- function(mu_input,sigma_input){
 ```
 
 And we convert this to a "vectorized" function so we can use it in `dplyr` functions.
-```{r define_like_function}
+```{r vectorize}
 height_lik_f_vec <- Vectorize(height_lik_f)
 ```
 
