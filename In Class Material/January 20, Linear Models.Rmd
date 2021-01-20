@@ -74,7 +74,7 @@ what is actually meant is:
 $$
 Pr(\mathrm{data|parmeters}) = \prod PDF(\mathrm{Normal}(y_i , \mu , \sigma))
 $$
-This means that to get the likelihood of a dataset that invovles multiple observations (which we label $\y_i$), we are multiplying together the likelihood of each individual datapoint. This is because we are assuming that each height is independant of each other, and the joint probability of independant events is the product of their probabilities. 
+This means that to get the likelihood of a dataset that invovles multiple observations (which we label $\y_i$), we are multiplying together the likelihood of each individual datapoint. This is because we are assuming that each height is independent of each other, and the joint probability of independent events is the product of their probabilities. 
 
 An additional important point is that we can do our work on the log scale, which converts products into sums, and then convert back to the natural scale. This is largely a computational trick done in the software behind the scenes.
 
