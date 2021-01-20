@@ -28,12 +28,12 @@ library(rethinking)
 
 In RMarkdown we can use $\LaTeX$ to typeset equations. A nice intro to $\LaTeX$ is here: https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes .
 
-I'll recreate the description on pate 77. 
+I'll recreate the description on page 77. 
 We start typesetting a $\LaTeX$ equation with the "\$\$" symbol. The symbol "~" can be generated with the `\sim` command: 
 $$
 y_i \sim \mathrm{Normal}(\mu_i, \sigma)
 $$
-Math symbols in greek are generally produced with `lettername`. 
+Math symbols in greek are generally produced with `\lettername`. 
 
 2.  Next we put in any "transformations", which are sometimes called "link" functions.  You can tell that a line is one of the transformations because it only involves parameters (but including hyper-parameters), not data, and because it does not involve a probability density (or the symbol $\sim$)  
 
@@ -85,7 +85,7 @@ It can be very useful to first see what sort of data, in broad terms, your prior
 
 Here we apply the prior by drawing values for $\mu$ and $\sigma$ and then drawing a normally distributed height from that. 
 ```{r}
-prior_sim <- tibble( mu=rnorm(1e4,mean=178,sd=20), sigma=runif(1e4,min=0,max=50)) %>%
+prior_sim <- tibble( mu=rnorm(1e4,mean=178,sd=50), sigma=runif(1e4,min=0,max=100)) %>%
   mutate(y=rnorm(n(),mean=mu,sd=sigma)) 
 ```
 
