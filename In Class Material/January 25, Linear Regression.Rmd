@@ -19,11 +19,9 @@ source("../Resources/helper.R")
 
 
 * Learn how to write notation for a linear regression type of model  
-* Prior Predictive simulation
-* renormalizing data
-* grid approximation with 2 parameters
 * Learn how to use the "quadratic approximation" to calculate a posterior distribution  
 * Do a linear regression  
+* Plot samples and simulations from the posterior distribution
 
 
 
