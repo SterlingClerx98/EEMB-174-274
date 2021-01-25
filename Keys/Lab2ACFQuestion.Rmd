@@ -1,0 +1,79 @@
+---
+title: "ACF Posterior Check"
+author: "Stephen R. Proulx"
+date: "1/21/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rethinking)
+```
+
+
+## Problem 5: Double Double Super Mega Extra Credit
+
+Simulate binomial data as in 3M3 but this time simulate an actual sequence of W and L tosses. Assume our sequence was {W,W,L,W,L,L,W,L,W,W,L,L,W,W,L}. Conduct a posteiror predictive check for using the autocorrelation as a statistic. 
+
+
+We can compute the autocorrelation for this sequence as follows:
+```{r}
+ac <- acf(c(1, 1, 0,1,0,0,1,0,1,1,0,0,1,1,0), pl = FALSE)
+ac$acf[2]
+```
+
+
+
+```{r}
+tosses<-15
+waters<-8
+stepsize=0.001
+nsamp<-1e4
+
+post_approx <- tibble(p = seq( from=0 , to=1 , by=stepsize ) ) %>%
+  mutate(  likelihood = dbinom( waters , size=tosses , prob=p),
+           prior  =1,
+           raw.posterior=likelihood*prior,
+           posterior = raw.posterior/sum(raw.posterior))
+
+
+set.seed(100)
+samples <- tibble(p=sample( post_approx$p, prob=post_approx$posterior , size=nsamp , replace=TRUE ) )
+
+ggplot(data=post_approx,aes(x=p,y=posterior)) +
+  geom_point()
+
+```
+
+
+
+Calculate acf for the samples.
+```{r}
+
+calcacf <- Vectorize(function(p_input){
+  sequence<- tibble(toss = rbinom(15,prob=p_input,size=1))
+  ac <- acf(sequence$toss, plot=F)
+  ac$acf[2]
+})
+
+
+```
+
+```{r}
+post_check <- mutate(samples,ac=calcacf(p)) %>%
+  
+```
+
+```{r}
+ggplot(post_check, aes(x=ac))+geom_density()
+```
+
+
+```{r}
+
+post_check<- drop_na(post_check)
+PI(post_check$ac)
+```
+
