@@ -121,7 +121,7 @@ $$
 y_i \sim \mathrm{Normal}(\mu, \sigma)\\
 \mu_i  = a +b*weight_i \\
 a \sim \mathrm{Normal}(178,20)\\
-b \sim \mathrm{Normal}(178,20)\\
+b \sim \mathrm{LogNormal}(0,1)\\
 \sigma \sim \mathrm{Uniform}(0,50) 
 $$
 
