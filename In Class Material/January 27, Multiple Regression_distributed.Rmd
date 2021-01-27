@@ -32,7 +32,8 @@ Our general routine will be:
 
 
 Note on chapter 5: 
-McElreath spends a lot of time developing the DAG concept and discussing how confounds arise when the structure of the causal model is not accounted for. We are largely going to bypass this. snausage
+McElreath spends a lot of time developing the DAG concept and discussing how confounds arise when the structure of the causal model is not accounted for. We are largely going to bypass this. It's useful to read it and start thinking about it, but you won't be tested on this and we won't directly use it in the rest of our analysis.
+
 
 ## Spurius waffles
 Load the data on divorce rates by state.  
