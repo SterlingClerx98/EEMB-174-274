@@ -95,7 +95,7 @@ link_df <- function( fit , data  , ... ) {
     
   }
   #return the tibble
-  select(joined_dat ,-key, -index)
+  select(joined_dat ,-key)
   
   
   
@@ -142,7 +142,7 @@ sim_df <- function( fit , data  , ... ) {
   #
   
   #return the tibble
-  select(sim_output_tibble ,-key, -index)
+  select(sim_output_tibble ,-key)
   
   
   
