@@ -137,7 +137,7 @@ From these plots how well do you think that area in this linear model predicts f
 
 ### Does food level affect fox weight?
 
-Repeat everything you did above but now with food level (F) instead of weight.
+Repeat everything you did above but now with food level (F) instead of area.
 
 ```{r}
 m2 <- quap()
@@ -183,7 +183,7 @@ rethinking::pairs(m4)
 
 
 
-Now make a plot that compares the mean weights (mu) that the model predicts against the actual weights of each group.
+Now make a plot that, for each group, compares the mean predicted weights (mu) actual mean weights. That is to say, each fox group has data about food and weight. We can put those values in our model to predict the mu of each group. We can then compare our prediction with the actual mean weight of each group.
 
 ```{r}
 
