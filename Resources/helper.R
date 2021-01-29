@@ -136,14 +136,90 @@ sim_df <- function( fit , data  , ... ) {
     inner_join(data_indexed,"index") %>%    
     
     rename(!!data_name :=  sampled_value)
-  
-  #    rename(paste0(data_name) = sampled_value)
-  
-  #
+   
   
   #return the tibble
   select(sim_output_tibble ,-key)
   
   
   
+}
+
+
+
+#Versions that require tidybayes
+
+link_df_tb = function(fit, data,  n = NULL, seed = NULL, ... ) {
+  if(  !("tidybayes" %in% installed.packages()) ){
+    stop("Requires tidybayes package")
+  } 
+  
+  
+  require(tidybayes)
+  
+  if (!(inherits(fit, "map") || inherits(fit, "quap"))){
+    stop("Can only run on fitted models from quap or map out of the rethinking package")
+  }
+    
+  
+  set.seed(seed)
+  value = ".value"
+
+   
+  
+  
+  if (is.null(n)) { n = 1000  }
+  
+  # get the draws from the link-level predictors
+  num_formulas = length(fit@links)
+  
+  #tibble of formula variable names
+  varnames<- tibble(names=rep("null",num_formulas))
+  for(i in 1:num_formulas){
+    varnames$names[[i]] <- fit@links[[i]][[1]]
+  }
+  
+  
+  draws_list = rethinking::link(fit, data, n = n, flatten = FALSE , ... )
+# use tidybayes to make long versions of the rethinking::link output 
+# loop through all the variables that have values and give them their actual
+# names. 
+  for(i in 1:(length(draws_list))){
+    draws <- add_draws(data, draws_list[[i]], value = value) %>%
+      rename(index=".row",draw.number=".draw",!!varnames$names[i] := ".value")
+    if(i==1){draws_tot <- draws}
+    else{draws_tot <-left_join(draws_tot,draws)}
+  }
+  
+  ungroup(draws_tot)
+}
+
+sim_df_tb = function(fit, data,  n = NULL, seed = NULL, ... ) {
+
+  
+  if(  !("tidybayes" %in% installed.packages()) ){
+    stop("Requires tidybayes package")
+    } 
+  
+  require(tidybayes)
+  
+  if (!(inherits(fit, "map") || inherits(fit, "quap"))){
+    stop("Can only run on fitted fits from quap or map out of the rethinking package")
+  }
+  
+  
+  set.seed(seed)
+  value = ".value"
+  
+  if (is.null(n)) { n = 1000  }
+  
+  #extract the name of the data column
+  data_name <- fit@formula[[1]][[2]]
+  
+  #from tidybayes
+  sims = rethinking::sim(fit, data, n = n)
+  draws = add_draws(data, sims, value = paste0(data_name,".","sim"))%>%
+    rename(index=".row",draw=".draw")
+  
+ungroup(draws)  
 }
