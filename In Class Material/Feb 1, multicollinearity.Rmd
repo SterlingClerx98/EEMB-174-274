@@ -23,7 +23,7 @@ source("../Resources/helper.R")
  
 
 
-## Effects of Multicolinearity
+## Effects of Multicollinearity
 
 Here we start with simulated data where we assume that legs are 40-50% of total height and that there is some difference between measured right and left leg length.
 ```{r}
