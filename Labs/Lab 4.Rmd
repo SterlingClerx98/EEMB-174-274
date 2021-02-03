@@ -131,7 +131,7 @@ Now remake the above plot, this time also add a red ribbon for the 80% percentil
 ```{r}
 # Put plot code here
 ```
-From these plots how well do you think that area in this linear model predicts fox weight?
+From these plots how well do you think that this linear model predicts fox weight?
 
 < Type answer here >
 
