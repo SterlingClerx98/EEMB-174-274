@@ -55,7 +55,7 @@ $$
 \mu = a + b * \mathrm{AA} \\
 a \sim \mathrm{Normal(400,150)} \\
 b \sim \mathrm{Normal(0,200)} \\
-a \sim \mathrm{Exponential(0.01)} \\
+\sigma \sim \mathrm{Exponential(0.01)} \\
 $$
 Plot the prior with the data. Explain what makes this a reasonable prior.
 
