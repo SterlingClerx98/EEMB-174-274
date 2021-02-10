@@ -90,6 +90,8 @@ And use the code from the book to plot the in-sample and out-of-sample lppd.
 
 Important note: This analysis averages simulations of a certain complexity and then compares that to averaged simulations of a different complexity. It may be better to compare models of alternative complexity for the same simulated data, and then average that.
 ```{r}
+N <- 20
+kseq <- 1:5
 ## R code 7.18
 plot( 1:5 , dev[1,] , ylim=c( min(dev[1:2,])-5 , max(dev[1:2,])+10 ) ,
     xlim=c(1,5.1) , xlab="number of parameters" , ylab="deviance" ,
