@@ -1,0 +1,42 @@
+---
+title: "Homework 7"
+author: "Stephen R. Proulx"
+date: "12/27/2020"
+output: pdf_document
+header-includes:
+  - \usepackage{color}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(rethinking)
+source("../Resources/helper.R")
+```
+# Bayesian Statistical Modeling Winter 2021
+# Homework, Week 7
+
+*When is homework due?* Because I assigned this homework late, it is due on Tuesday, 2/23/2021. 
+
+
+Complete these problems from the end of chapter 
+
+## 8E1
+
+
+## 8E2
+
+
+## 8E3
+
+
+## 8M1
+
+
+## 8M2
+
+
+## 8M3  
+
+
+
