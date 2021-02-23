@@ -21,21 +21,6 @@ source("../Resources/helper.R")
 * Learn the `ulam` syntax
 
 
-## Using `ulam` and `stan` on the cluster
-There is an issue with the way the cluster is set up that we have a fix for, but sometimes requires restarting `R` again. The step is to first run the following:
-
-```{r, eval=FALSE}
-dotR <- file.path(Sys.getenv("HOME"), ".R")
-if (!file.exists(dotR)) dir.create(dotR)
-M <- file.path(dotR, "Makevars")
-if (!file.exists(M)) file.create(M)
-cat("\nCXX14FLAGS=-O3 -march=native -mtune=native -fPIC",
-    "CXX14=g++", # or clang++ but you may need a version postfix
-    file = M, sep = "\n", append = TRUE)
-```
-
-And then go to Session->Restart R. You will need to run these lines of code again if the server is restarted (like when you login and it says "launching...") 
-
 
 
 ## The Metropolis algorithm 
