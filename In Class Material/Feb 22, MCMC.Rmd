@@ -188,7 +188,8 @@ m.u.7.5 <-
     brnA  ~ dnorm(0,1),
     brA  ~ dnorm(0,1),
     sigma ~ dexp(1)
-  ), data=d ,  chains=4, cores=4 , iter=3000 )
+  ), data=d ,  chains=4, cores=4 , iter=3000,
+  log_lik = TRUE)
 ```
 
 Check the summaries of the output.
