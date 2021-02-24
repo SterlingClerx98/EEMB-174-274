@@ -35,7 +35,7 @@ You already have a lot of skills for working with samples of parameters from the
 ```{r , eval=FALSE}
 posterior.samples.stanfit.example <- rstan::extract(stanfit.ulam.example) %>% as_tibble()
 
-posterior.samples.ulam.example <- rethinking::extract.samples(stanfit.ulam.example) %>% as_tibble()
+posterior.samples.ulam.example <- rethinking::extract.samples(m.ulam.example) %>% as_tibble()
 ```
 
 ## Diagnosing and regularizing stan output
@@ -219,8 +219,8 @@ m.HC.logit <- ulam(alist(
   death ~ dbinom( total , mu ),
   logit(mu) <-  a + HC_indicator * delHC + AZ_indicator * delAZ,
   a ~ dnorm(0,1),
-  delHC ~ dunif(0,0.1),
-  delAZ ~ dunif(0,0.05)),
+  delHC ~ dnorm(0,0.1),
+  delAZ ~ dnorm(0,0.05)),
   data=outcomes,
   chains=4,cores=4,iter=2000
 )
