@@ -27,7 +27,7 @@ Load the dataset. It contains covid case numbers and deaths for all counties in 
 load("SB_covid_data.Rdata")
 ```
 
-We're going to calculate some new columns that summarize weekly total covid cases. To do this we need to group by the county, and make sure the data are in order by date. The column `delta.days` is the number of days elapsed since data on coid cases was first reporded last winter. 
+We're going to calculate some new columns that summarize weekly total covid cases. To do this we need to group by the county, and make sure the data are in order by date. The column `delta.days` is the number of days elapsed since data on covid cases were first reporded last winter. 
 
 ```{r}
 county_ca <- group_by(county_ca,county) %>%
@@ -65,7 +65,7 @@ spline_data <- tibble( delta.days=ssvals$x, week_cases = ssvals$y)
 ggplot(data=sb_data, aes(x=delta.days,y= week_cases/7)) +
   geom_point()+
   geom_line(data=spline_data,color="red")+
-  scale_y_continuous( limits=c(1,600) )+
+  scale_y_continuous( limits=c(1,100) )+
   scale_x_continuous(limits=c(firstday,maxday))+
   labs( x="days since Jan 22" , y="7-day average cases")
 
