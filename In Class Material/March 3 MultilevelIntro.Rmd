@@ -1,0 +1,215 @@
+---
+title: "March 3, Multilevel I"
+author: "Stephen R. Proulx"
+date: "3/1/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(rethinking)
+source("../Resources/helper.R")
+```
+
+# Today's objectives:  
+* See how to write models with multiple layers of parameter distributions. 
+* Observe the way that multilevel models can improve model fit without creating over-fitting
+* Include a multi-level component in a model that tests for a treatment effect
+
+
+# Reedfrog datasetr
+This data is from a study that looked at how tadpole density and size affected their predation rate. Those that survived did so because they didn't die naturally and also did not get eaten. 
+
+
+Load the data and have a general look.
+
+```{r}
+data(reedfrogs)
+d <- as_tibble(reedfrogs)%>%
+  rowid_to_column("tank") %>%
+  view()
+```
+
+Let's see how it looks, we'll add some features to the plot so we can visualize the effects.
+```{r}
+ggplot(d, aes(x=tank, y= propsurv)) +geom_point( aes(color=pred,shape=as.factor(density)))
+```
+
+
+
+
+## Tank effects model with no predictors
+
+Here we have a model you should be fairly used to, individual effects for each tank with a common prior for all tanks.
+```{r}
+m13.1 <- ulam(
+  alist(
+    surv ~ dbinom( density, p),
+    logit(p) <- a[tank],
+    a[tank] ~ dnorm(0,1.5)
+  ),
+  data=select(d,surv,density,tank), chains=4, log_lik = TRUE
+  )
+```
+
+Inspect the summary, there are 48 parameters, and they all have good convergence stats. 
+```{r}
+precis(m13.1 , depth =2)
+```
+
+Compute the WAIC. The effective number of parameters is lower than the true number, but it is more important to know how the number of parameters compares between models. 
+```{r}
+WAIC(m13.1)
+```
+
+
+### Same system, but multi-level tank effects
+
+Here we model the tank-specific means as coming from a distribution themselves. We will end up with a parameter for each tank, and this parameter will have a mean and a distribution. But we also will have the more general parameters which describe where tank parameters themselves come from. This is great, we can now make predictions about tanks we have not yet seen without resorting to over-fitting. 
+```{r}
+m13.2 <- ulam(
+  alist(
+    surv ~ dbinom( density, p),
+    logit(p) <- a[tank],
+    a[tank] ~ dnorm(abar,sigma),
+    abar ~ dnorm(0,1.5),
+    sigma ~ dexp(1)
+  ),
+  data=select(d,surv,density,tank), chains=4, log_lik = TRUE
+  )
+```
+
+This model now has 50 parameters, a few more than the last. 
+```{r}
+precis(m13.2,depth=2)
+```
+We compute WAIC and see that the effective number of parameters has actually gone down!
+```{r}
+WAIC(m13.2)
+```
+
+And we can compare them. The multilevel model here does better, and does more-better than the SE of the WAIC scores, so we can be confident that it improves fit to the data without overfitting. And as we've already noted it does this by having fewer effective parameters. 
+```{r}
+compare(m13.1,m13.2)
+```
+
+
+### A multi-level model with contrasts
+In the reedfrog example we may actually want to know some things about how tadpole survival depends on the imposed experimental conditions. While there are many aspects of the data that are relevant, we will focus on one, the influence of tank size on predation rate. 
+
+Setup the data: We need to add an index variable for density (1,2,3) and an indicator variable for predation (0,1).
+```{r}
+d<- mutate(d, D=as.numeric( as.factor(density)),
+           P=(pred=="no")*0 + (pred=="pred")*1) %>% view()
+```
+
+
+Here's a reasonable model. In the absence of predators, there is a baseline mortality rate that is tank density dependent. The presence of predators has an additive effect, on the logit scale, but this slope depends on tank density. And each tank also has "noise", variance in the binomial parameter itself that is not due to a measured predictor, but is common to the tadpoles within each tank (i.e. tank temperature, predator vigor, etc.)
+
+The "noise" is centered at 0, because it is noise. How much noise is there between tanks? We don't know this ahead of time, so we make a multi-level model. The noise parameter itself is normally distributed, but we use the data to fit the sigma associated with this. 
+
+We do, however, have to have a prior for sigma itself, we can't kick the can down the road forever. 
+```{r}
+m.tank.size.prior <- ulam(alist(
+  surv ~ dbinom(density , p),
+  logit(p) <- a[D] + b[D]*P + noise[tank],
+  a[D] ~ dnorm(1,2),
+  b[D] ~ dnorm(0,1),
+  noise[tank] ~ dnorm(0,sigma), #this is what makes it multilevel!
+  sigma ~ dexp(1)
+), data=select(d,surv,D,P,tank) , cores=4 , chains=4 , iter=3000, sample_prior = TRUE)
+```
+
+
+
+Simulate from the prior: Some work is required to re-associate the output with the tank number and calculate the propotion that survived
+```{r}
+prior.sim.tank.size <- sim(m.tank.size.prior, data=d) %>%
+  as_tibble() %>%
+  gather("tanks","surviving",1:48)%>%
+  separate(tanks,c("V","tank"), sep=1) %>%
+  mutate(tank=as.numeric(tank)) %>%
+  left_join(select(d,tank,density,P))%>%
+  mutate(propsurv = surviving/density)
+
+
+```
+
+Our prior seems broad enough to capture the data, without getting pegged at 0 or 1. 
+```{r}
+ggplot(prior.sim.tank.size , aes(x=tank, y=propsurv, group=as.factor(tank), color=as.factor(P)))+
+  geom_boxplot(outlier.alpha = 0)
+```
+
+
+Now we are ready to try our full model!
+```{r}
+m.tank.size <-  ulam(alist(
+  surv ~ dbinom(density , p),
+  logit(p) <- a[D] + b[D]*P + noise[tank],
+  a[D] ~ dnorm(1,2),
+  b[D] ~ dnorm(0,1),
+  noise[tank] ~ dnorm(0,sigma), #this is what makes it multilevel!
+  sigma ~ dexp(1)
+), data=select(d,surv,density,D,P,tank) , cores=4 , chains=4 , iter=3000, sample_prior = FALSE,
+sample = TRUE)
+```
+
+
+Check the chain stats, everything seems fine. 
+```{r}
+precis(m.tank.size,depth=2)
+```
+
+Simulate from the posterior: Some work is required to re-associate the output with the tank number and calculate the propotion that survived
+```{r}
+post.sim.tank.size <- sim(m.tank.size, data=d) %>%
+  as_tibble() %>%
+  gather("tanks","surviving",1:48)%>%
+  separate(tanks,c("V","tank"), sep=1) %>%
+  mutate(tank=as.numeric(tank)) %>%
+  left_join(select(d,tank,density,P))%>%
+  mutate(propsurv = surviving/density)
+
+
+```
+
+ 
+
+Now we summarize and plot alongside of the original data
+```{r}
+summary.post.sim.tank.size <-group_by( post.sim.tank.size ,tank) %>%
+  summarise(
+    mean_propsurv = mean(propsurv),
+    lower_propsurv = quantile(propsurv,0.1),
+    upper_propsurv = quantile(propsurv,0.9),
+  ) %>%
+  ungroup()
+
+```
+
+
+Here the big purple dots are the mean of the posterior simulations. They have a specific pattern relative to the small red and blue dots that are the ovserved data. For tanks that all have the same preditors (density of tadpoles and presence of predators), the purple dots are always closer to the mean of that group than the actual data. THIS is shrinkage. The model is skeptical of extreme datapoints, but at least acknowledges that each tank is skewed away from the mean.  
+```{r}
+ggplot(summary.post.sim.tank.size, aes(x=tank,y=mean_propsurv))+
+  geom_point(color="purple",alpha=0.25,size=5)+
+  geom_errorbar(aes(ymin=lower_propsurv,ymax=upper_propsurv),width=0.5) +
+  geom_point(data=d,aes(x=tank,y=propsurv,group=as.factor(tank), color=as.factor(P))) 
+```
+
+### What happens when we remove the added variance
+Re-run this analysis, but artificially remove the tank-specific noise in the model. You can do this simply by setting the prior on `sigma` to be tightly focused on 0. Compare the posterior simulation, what has changed? Do you think this creates over-fitting?
+
+
+
+### Does density effect predation dependent survival
+What is the effect of density on predation? i.e. what are the contrasts in the `b` values?
+
+
+
+### Compare to a model where tank density is not included as a predictor of the effect of predation on survival
+Write a model where tank density is not a predictor of survival and compare the WAIC score to our full model. How does it relate to our result in terms of the contrasts above?
+
+
