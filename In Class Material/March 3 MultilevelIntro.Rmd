@@ -19,7 +19,7 @@ source("../Resources/helper.R")
 * Include a multi-level component in a model that tests for a treatment effect
 
 
-# Reedfrog datasetr
+# Reedfrog dataset
 This data is from a study that looked at how tadpole density and size affected their predation rate. Those that survived did so because they didn't die naturally and also did not get eaten. 
 
 
@@ -93,6 +93,67 @@ WAIC(m13.2)
 And we can compare them. The multilevel model here does better, and does more-better than the SE of the WAIC scores, so we can be confident that it improves fit to the data without overfitting. And as we've already noted it does this by having fewer effective parameters. 
 ```{r}
 compare(m13.1,m13.2)
+```
+
+
+### Converting to the model with no variance between tanks
+Here's the model where all tanks have the same `a`
+```{r}
+m13.2.single.a <- ulam(
+  alist(
+    surv ~ dbinom( density, p),
+    logit(p) <- abar ,
+    abar ~ dnorm(0,1.5) 
+  ),
+  data=select(d,surv,density,tank), cores=4, chains=4 ,iter=6000, log_lik = TRUE
+  )
+```
+
+```{r}
+WAIC(m13.2.single.a)
+```
+
+Two ways to reduce this model to one with a fixed `a` value for all tanks. Either set the variance to close to 0 manually, or choose a prior for the variance that is concentrated around 0. In either case the WAIC goes way up because it isn't fitting the data well and the penalty for parameters is lower than before.
+```{r}
+m13.2.small.sigma <- ulam(
+  alist(
+    surv ~ dbinom( density, p),
+    logit(p) <- a[tank],
+    a[tank] ~ dnorm(abar,0.01), # I just typed 0.001 instead of sigma
+    abar ~ dnorm(0,1.5) 
+  ),
+  data=select(d,surv,density,tank), cores=4, chains=4 ,iter=6000, log_lik = TRUE
+  )
+```
+
+```{r}
+WAIC(m13.2.small.sigma)
+```
+
+
+
+```{r}
+m13.2.tight.prior <- ulam(
+  alist(
+    surv ~ dbinom( density, p),
+    logit(p) <- a[tank],
+    a[tank] ~ dnorm(abar,sigma),
+    abar ~ dnorm(0,1.5),
+    sigma ~ dexp(1000)
+  ),
+  data=select(d,surv,density,tank), cores=4, chains=4 ,iter=6000, log_lik = TRUE
+  )
+```
+
+
+
+```{r}
+WAIC(m13.2.tight.prior)
+```
+
+How do they compare? They basically all come out the same, because they are more or less doing the same thing. The raw lppd scores are quite similar, and the WAIC are not more different thamn the SE of WAIC.
+```{r}
+compare(m13.2.single.a,m13.2.small.sigma,m13.2.tight.prior)
 ```
 
 

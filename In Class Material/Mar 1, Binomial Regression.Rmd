@@ -61,6 +61,11 @@ d<- mutate(d , treatment = 1 + prosoc_left + 2*condition)
 
 ```
 
+```{r}
+view(d)
+```
+
+
 
 
 We can fit the probability of pulling the left lever for all trials without any additional predictors. They more often pull right.
@@ -97,7 +102,7 @@ m11.2 <- quap(
         pulled_left ~ dbinom( 1 , p ) ,
         logit(p) <- a + b[treatment] ,
         a ~ dnorm( 0 , 1.5 ),
-        b[treatment] ~ dnorm( 0 , 10)
+        b[treatment] ~ dnorm( 0 , 0.5)
     ) , data=d )
 
 set.seed(1999)
@@ -148,6 +153,11 @@ post <- extract(m11.4@stanfit) %>%
   mutate(p_left = inv_logit(a))
 
 ```
+
+```{r}
+view(post)
+```
+
 
 We can visualize the parameters themselves, starting with the chimp-specific "intercepts". We can plot them on the logit scale or back on the probability scale. Notice how the logit transformation stretches values that are scrunched near the edges of the probability scale.
 ```{r}
