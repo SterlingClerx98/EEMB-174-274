@@ -5,13 +5,13 @@ date: "1/6/2021"
 output: pdf_document
 ---
 
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 # Lab Exercise, Week 1
-# 1/6/2021
+# 1/6/2022
 
-*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself. This assignment is due on Thursday, 1/21/2021. You must answer all the problems, which are written in **bold**. 
+*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself. This assignment is due on Thursday, 1/13/2022. You must answer all the problems, which are written in **bold**. 
 
-Submit homework and labs to gradescope: https://www.gradescope.com/courses/221734. It's easiest for us if you include both the pdf and the R Markdown file. To get the R Markdown onto your machine from the virtual machine it's easiest to copy-past the raw code into a text document and change the file extension to*.Rmd*. For the pdf you should be able to generate and download it from the virtual machine. If for some reason you can't create the pdf submitting just the R Markdown is fine. 
+Submit homework and labs to gradescope: NEED GRADESCOPE LINK. It's easiest for us if you include both the pdf and the R Markdown file. To get the R Markdown onto your machine from the virtual machine it's easiest to copy-past the raw code into a text document and change the file extension to*.Rmd*. For the pdf you should be able to generate and download it from the virtual machine. If for some reason you can't create the pdf submitting just the R Markdown is fine. 
 
 This lab's problems follow up on the example of estimating the percentage of the earth's surface that is water. But first we will briefly go over how to use R Markdown. Feel free to skip this section if you are already wise in its ways.
 

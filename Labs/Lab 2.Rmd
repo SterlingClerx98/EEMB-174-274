@@ -11,11 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(rethinking)
 ```
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 ## Lab Exercise, Week 2
-## 1/14/2021
+## 1/13/2022
 
-This assignment is due on Thursday, 1/21/2021. Submit the .Rmd and pdf to gradescope: https://www.gradescope.com/courses/221734
+This assignment is due on Thursday, 1/20/2022. Submit the .Rmd and pdf to gradescope: 
 
 
 These problems follow up on the example of estimating the percentage of the Earth's surface that is water. 

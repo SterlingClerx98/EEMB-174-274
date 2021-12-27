@@ -12,10 +12,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(rethinking)
 ```
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 # Homework, Week 3
 
-*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/25/2021. 
+*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/24/2022. 
 
 
 Complete these problems from the end of chapter 4.

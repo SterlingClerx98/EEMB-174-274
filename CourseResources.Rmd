@@ -1,0 +1,194 @@
+---
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+urlcolor: blue
+header-includes:
+  - \usepackage{color}    
+---
+
+
+
+```{r setup, include=FALSE}
+library(knitr)
+library(testthat)
+library(tidyverse)
+library(patchwork)
+eval <- FALSE
+knitr::opts_chunk$set(echo=TRUE, 
+                      cache=FALSE, 
+                      fig.width=5, 
+                      fig.height=5,
+                      fig.align='center', 
+                      eval=eval)
+indent1 = '    '
+indent2 = paste(rep(indent1, 2), collapse='')
+indent3 = paste(rep(indent1, 3), collapse='')
+r = function(x, digits=2){ round(x, digits=digits) }
+
+```
+
+
+\begin{center}
+{\Large \textsc{EEMB 174/274: Advanced Biostatistics and Bayesian Analysis}}
+\end{center}
+\begin{center}
+Winter 2021
+\end{center}
+
+ 
+
+
+### Course Instructor:
+Stephen Proulx  \href{mailto:sproul@ucsb.edu}{sproul@ucsb.edu}
+
+### Teaching Assistant:
+Taom Sakal  \href{mailto:tsakal@ucsb.edu}{tsakal@ucsb.edu} 
+
+
+###  Required Text
+  Richard MaElreath [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/). The book can be purchased through the bookstore or online in various formats. It is also available through the UCSB library: [library e-copy](https://ucsb-primo.hosted.exlibrisgroup.com/permalink/f/1egv95m/01UCSB_ALMA51345854830003776).
+  
+
+
+
+
+# Using the virtual machine to run R and Stan
+All of the course work can be completed using a "virtual machine" that is provided for you to use. This virtual machine has the latest version of R and RStudio installed, as well as specific packages that we will use throughout the course. This allows each of you to access the precise same computational environment and will help to elliminate difficulties with installing software on each of your individual computers. An advantage of using the VM is that your work is saved remotely and will be preserved even if you leave the session and login later from a different computer or location.  Howwever, you will need  internet access the entire time you are using the VM. 
+
+
+## Setting up your own local environment
+You may also choose to install the software tools on your own computer. Because each installation is unique I cannot provide detailed instructions on how to do this. However, the tools that you would need are  
+
+*    R  
+*    [RStudio](https://rstudio.com/products/rstudio/)  
+*    [RStan](https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started)  
+*    Tidyverse package for R  
+*    [Rethinking package for R](https://github.com/rmcelreath/rethinking)
+
+
+
+## Accessing the Virtual Machine
+The VM can be accessed from a web browser by using the address: https://eemb174.lsit.ucsb.edu/
+You will be prompted to login with your UCSB credentials. This will launch RStudio which will have 4 panels visible. These panels are  
+
+* Top left: R code panel  
+* Top right: R environment panel  
+* Bottom left: Console and Terminal panel  
+* Bottom right: File system panel
+
+## Setting up your own directory
+
+The bottom right panel will show the file system for your personal copy of the VM. This is where the course materials will show up when you add them using `git` and this is also where you will save your own work.
+
+It is a good idea to create a directory to save your own work in. In the bottom right panel, click "New Folder" (top left of the panel, under "Files") and create a new folder. You will be prompted to enter a name for the folder, use your own name as part of this name.
+
+
+## Getting the course materials
+Course materials, including homework and lab assignments, will be made available using [github](https://guides.github.com/activities/hello-world/). This will allow us to update the materials throughout the quarter and for you to add them to your VM directory.  We will also include various course resources, like tutorials and cheatsheets.
+
+To get the course materials for the first time you will need to use the VM "Terminal". Access this in the lower left panel by clicking the tab "Terminal". This provides a command line prompt. You will use this tab to directly typ command line instructions. 
+
+To "clone" the git repository for the first time do:  
+`git clone https://github.com/srproulx/EEMB-174-274`  
+This creates a directory named `EEMB-174-274` with subdirectories containing the course materials.
+
+
+
+To refresh with new material from the terminal you need to first "change directory":  
+`cd ~/EEMB-174-274/`  
+and then "pull" the updated material:  
+`git pull https://github.com/srproulx/EEMB-174-274`  
+
+
+
+You will also be able to refresh the course material in one step using this link:  \url{http://bit.ly/3hyqx4Y}.
+
+
+
+
+
+# Coursework and grading
+Coursework will include homework, lab reports, quizzes, and two assessment exercises (in place of midterm and final exams). Roughly, the breakdown is: 
+ 
+Category    | Percentage     
+------------- | ------------- 
+Homework  |  30%  
+Lab Reports | 45%   
+Quizzes  | 15%  
+Midterm | 5%
+Final | 5%  
+
+
+Homework and labs are numbered by the week in which they are assigned. Homework will not be assigned in every week. 
+
+
+## Gauchospace quizzes
+These quizzes will be designed for you to self-check your progress and for us to get feedback on which concepts are more difficult and need more explanation.  Some of the quizzes will be multiple choice and allow you to re-take the quiz until you get the answers right. 
+
+## Homework
+Most weeks will have a homework assignment using problems from the textbook. These homeworks will be graded based on attempted completion, not correctness of the answers. To get credit you will have to explain your answer or describe, as best you can, where you got lost and were unable to finish the assignment.  (But if you do get stuck we encourage you to work with your classmates to get unstuck.) Assignments will be due on Monday mornings at class time. If there is some reason that you are unable to complete the assignment by the due date, please contact us and let us know so that we can work with you to ensure that you can stay up to speed in the course. 
+
+## Lab Assignments
+Labs are graded for completion and accuracy. You may work with a partner, but the text/writing answers you give should be your own. You will write each lab assignment using R Markdown and you will submit both the R Markdown file and generated PDF as a single zipped file. 
+
+# Rough schedule of the quarter
+Please note that this schedule will change throughout the quarter.
+
+## Weekly topics/reading
+
+Date  | Subject  | Reading 
+------------- | ------------- | -------------
+1/3/22    | Intro to course, virtual machine, Rmarkdown   | [Guide to RMarkdown](https://rpubs.com/brandonkopp/RMarkdown) 
+1/5/22    | Bayesian reasoning | Chapter 1
+1/10/22    | Writing data stories and Bayesian updating | Chapter 2
+1/12/22    | Simulating data and describing distributions of outcomes  | Chapter 3
+1/17/22    | No Class, MLK Day  |  
+1/19/22    | Fitting means | Chapter 4: 71-114
+1/24/22    | Linear regression | Chapter 4: 71-114
+1/26/22    | Multiple regression, spurious associations    | Chapter 5: pages 123-150
+1/31/22    | Dealing with confounds  | Chapter 6: 161-183
+2/2/22    | Post-treatment bias  |  
+2/3/22    | Midterm assessment exercise  | None
+2/7/22    | Information criteria for model comparison   | Chapter 7
+2/9/22    | Information criteria for model comparison   | Chapter 7
+2/14/22    | Models with interactions  | Chapter 8
+2/16/22    | MCMC methods    | Chapter 9
+2/21/22    | No Class | 
+2/23/22    | Generalized Linear Models   | Chapter 10
+2/28/22    | Specific GLMs with discrete distributions   | Chapter 11
+3/2/22    | Multilevel models | Chapter 13
+3/7/22    | Pooling models with covariance  | Chapter 14
+3/9/22    | Models with process dynamics  | ???
+
+
+## Weekly video lectures
+You should watch the recorded lectures by Richard McElreath before the date listed in the table. For some lectures, particular portions of the video are more relevant and this is printed in the "Notes" column.  
+
+
+Date  | Title  | Notes 
+------------- | ------------- | -------------
+1/5/22    | [The Golem of Prague](https://www.youtube.com/watch?v=4WVelCswXo4)    | Skip 11:30-18:30 
+1/10/22    | [The Garden of Forking Data](https://www.youtube.com/watch?v=XoVtOAN0htU)    | Up to 47:00
+1/12/22    | [The Garden of Forking Data](https://www.youtube.com/watch?v=XoVtOAN0htU)    | Starting at 47:00
+1/19/22    | [Geocentric Models](https://youtu.be/h5aPo5wXN8E)    | Full Lecture
+1/24/22    | [Wiggly Orbits](https://youtu.be/ENxTrFf9a7c)    | Through 37:30
+1/26/22    | [Spurious Waffles](https://www.youtube.com/watch?v=e0tO64mtYMU)    | Full Lecture
+1/31/22    | [Haunted DAG](https://youtu.be/l_7yIUqWBmE)    | TBD
+2/7/22    | [Ulysses' Compass](https://youtu.be/0Jc6Kgw5qc0)    | Start at 36:30
+2/9/22    | [Model Comparison](https://youtu.be/gjrsYDJbRh0)    | TBD
+2/14/22    | [Conditional Manattees](https://youtu.be/QhHfo6-Bx8o)    | TBD
+2/16/22    | [Markov Chain Monte Carlo](https://youtu.be/v-j0UmWf3Us)    | TBD
+2/23/22    | [Maximum entropy & GLMs](https://youtu.be/-4y4X8ELcEM)    | TBD
+2/28/22    | [God Spiked the Integers (binomial & Poisson GLMs](https://youtu.be/hRJtKCIDTwc)    | TBD
+3/2/22    | [Multilevel Models ](https://youtu.be/AALYPv5xSos)    | TBD
+3/7/21    | [Multilevel Models 2](https://youtu.be/ZG3Oe35R5sY)    | TBD
+3/9/22    | [Adventures in Covariance](https://youtu.be/yfXpjmWgyXU)    | TBD
+
+
+# A note on our current circumstance
+We are all experiencing difficult and unusual times right now. I understand that each of you has your own unique circumstance and that this will affect how you participate in the course this quarter. There will be due dates for homework and lab assignments and sticking to the due dates will help you to keep up to speed in the course and not fall behind. That said, we will not be taking off points for late homework or lab assignments. The quizzes will have cutoff times, again designed to ensure that you are staying up to date with the course. 
+
+Please reach out to either Professor Proulx (sproul@ucsb.edu) or Taom Sakal (tsakal@ucsb.edu) if you need to let us know about changes in your circumstances, have concerns about your ability to stay up to speed in the course, or have any other issues we can help with. 
+

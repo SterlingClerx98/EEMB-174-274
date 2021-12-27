@@ -8,10 +8,10 @@ output: pdf_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 # Homework, Week 2
 
-*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/14/2021. Submit homework to gradescope: *Link here*
+*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/17/2022. Submit homework to gradescope: *Link here*
 
 *Before submitting your work* You should use this file as a template for completing the assignment. You should change the author to your name. You should use the features of Rmarkdown to write your text answers below and include R code and equations where necessary. You should turn in both the .Rmd file as well as the pdf file that you generate by using the `Knit` button.
 

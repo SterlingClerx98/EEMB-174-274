@@ -12,11 +12,11 @@ library(tidyverse)
 library(rethinking)
 library(bayesplot)
 ```
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 # Lab Exercise, Week 3
-# 1/21/2021
+# 1/20/2022
 
-*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself.   This assignment is due on Thursday, 1/28/2021. Submit homework to gradescope: *Link here*
+*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself.   This assignment is due on Thursday, 1/27/2022. Submit homework to gradescope: *Link here*
 
 
 

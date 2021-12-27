@@ -13,20 +13,30 @@ library(tidyverse)
 library(rethinking)
 source("../Resources/helper.R")
 ```
-# Bayesian Statistical Modeling Winter 2021
-# Homework, Week 6
+# Bayesian Statistical Modeling Winter 2022
+# Homework, Week 7
 
-*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 2/16/2021. 
+*When is homework due?* This assignment is due on Tuesday, 2/22/2022. 
 
 
-Complete these problems from the end of chapter 7.
+Complete these problems from the end of chapter 
 
-## 7E2
+## 8E1
 
-## 7E3
 
-## 7E4
+## 8E2
 
-## 7M3
 
-## Optional but fun: 7H3
+## 8E3
+
+
+## 8M1
+
+
+## 8M2
+
+
+## 8M3  
+
+
+

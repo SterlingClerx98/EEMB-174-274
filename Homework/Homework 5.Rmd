@@ -1,5 +1,5 @@
 ---
-title: "Homework 4"
+title: "Homework 5"
 author: "Stephen R. Proulx"
 date: "12/27/2020"
 output: pdf_document
@@ -14,18 +14,19 @@ library(rethinking)
 source("../Resources/helper.R")
 ```
 # Bayesian Statistical Modeling Winter 2022
-# Homework, Week 4
+# Homework, Week 6
 
-*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 1/31/2022. 
+*When is homework due?* Homework is due on Mondays (Tuesday if Monday is a holiday). This assignment is due on Monday, 2/14/2022. 
 
 
-Complete these problems from the end of chapter 5.
+Complete these problems from the end of chapter 7.
 
-## 5E1
+## 7E2
 
-## 5E3
+## 7E3
 
-## 5M1
+## 7E4
 
-## 5M4
+## 7M3
 
+## Optional but fun: 7H3

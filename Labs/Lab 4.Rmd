@@ -15,11 +15,11 @@ library(styler)  # styler can automatically style code for you. Use it via the A
 # Path to the helper.R file, relative to where your R markdown file is. (The '..' means 'go up a directory')
 source("../Resources/helper.R")   
 ```
-# Bayesian Statistical Modeling Winter 2021
+# Bayesian Statistical Modeling Winter 2022
 # Lab Exercise, Week 4
-# 1/28/2021
+# 1/27/2022
 
-*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself.   This assignment is due on Thursday, 2/4/2021.  
+*When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself.   This assignment is due on Thursday, 2/3/2022.  
 
 ## Multiple Regression 
 We'll use a dataset included with the Rethinking package, called "foxes". This dataframe includes observations of the weight of 116 foxes from 30 groups in urban areas of England. These foxes are territorial, and individuals are able to forage within their groups territory. The dataframe includes the area controlled by the group, as well as a measure of food available, labeled "avgfood" for average food. Fox groups vary in size, and this is encoded by the column "groupsize".
