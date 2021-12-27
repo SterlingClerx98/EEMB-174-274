@@ -34,7 +34,7 @@ r = function(x, digits=2){ round(x, digits=digits) }
 {\Large \textsc{EEMB 174/274: Advanced Biostatistics and Bayesian Analysis}}
 \end{center}
 \begin{center}
-Winter 2021
+Winter 2022
 \end{center}
 
  
@@ -103,7 +103,7 @@ and then "pull" the updated material:
 
 
 
-You will also be able to refresh the course material in one step using this link:  \url{http://bit.ly/3hyqx4Y}.
+You will also be able to refresh the course material in one step using this link:  \url{https://bit.ly/3sDOijB}.
 
 
 
@@ -133,8 +133,11 @@ Most weeks will have a homework assignment using problems from the textbook. The
 ## Lab Assignments
 Labs are graded for completion and accuracy. You may work with a partner, but the text/writing answers you give should be your own. You will write each lab assignment using R Markdown and you will submit both the R Markdown file and generated PDF as a single zipped file. 
 
-# Rough schedule of the quarter
-Please note that this schedule will change throughout the quarter.
+# Schedule of the quarter
+
+A graphical chart of the schedule for the quarter can be found at this link:
+\url{https://docs.google.com/spreadsheets/d/1hnA200GbSW_bz0R3gWMuG9q1STMd8_vL1uYpaVrmYMI/edit?usp=sharing}
+This chart shows when you should be doing readings, watching videos, working on homework, doing labs, and when assessment exercises will be happening.  
 
 ## Weekly topics/reading
 
