@@ -1,7 +1,7 @@
 ---
 title: 'Lab 1: Pooled Covid Testing'
 author: "Stephen R. Proulx, Taom Sakal"
-date: "1/6/2021"
+date: "1/6/2022"
 output: pdf_document
 ---
 
@@ -11,13 +11,13 @@ output: pdf_document
 
 *When is this lab due?* Labs are due on the Thursday after they are assigned. However, in many cases you can complete them during the lab period itself. This assignment is due on Thursday, 1/13/2022. You must answer all the problems, which are written in **bold**. 
 
-Submit homework and labs to gradescope: NEED GRADESCOPE LINK. It's easiest for us if you include both the pdf and the R Markdown file. To get the R Markdown onto your machine from the virtual machine it's easiest to copy-past the raw code into a text document and change the file extension to*.Rmd*. For the pdf you should be able to generate and download it from the virtual machine. If for some reason you can't create the pdf submitting just the R Markdown is fine. 
+Submit homework and labs to gradescope: https://www.gradescope.com/courses/345614. It's easiest for us if you include both the pdf and the R Markdown file, with the pdf uploaded first. To get the R Markdown onto your machine from the virtual machine you can copy-past the raw code into a text document and change the file extension to *.Rmd*. For the pdf you should be able to generate and download it from the virtual machine. If for some reason you can't create the pdf submitting just the R Markdown is fine. 
 
-This lab's problems follow up on the example of estimating the percentage of the earth's surface that is water. But first we will briefly go over how to use R Markdown. Feel free to skip this section if you are already wise in its ways.
+This lab's problems follow up on the example of estimating the percentage of the earth's surface that is water. But first we will briefly go over how to use R Markdown. Feel free to skip this section if you already know R.
 
 ## How to R Markdown (A very very short tutorial)
 
-R Markdown blends text with code. This is a great way to communicate understandable code to others (and to future -you once you inevitably forget what you wrote). This is text right now. Below is a code chunk.
+R Markdown blends text with code. This is a great way to communicate programs to others (and to your future self once you inevitably forget what you wrote). What you are reading right now is text. Below is a code chunk.
 
 ```{r}
 print("Roses are red,")
@@ -27,9 +27,9 @@ print("and Bayes' rule rules.")
 ```
 
 
-Put your cursor on one line of the code chunk and press *ctrl-enter* (the actual keystroke may be version specific) to run it. Or place your cursor anywhere in the chunk and press *ctrl-shift-enter* to run the entire thing. You can also press the green play button at the top right of the chunk.
+Put your cursor on one line of the code chunk and press *ctrl-enter* (the actual keystroke may be version specific) to run it. Or place your cursor anywhere in the chunk and press *ctrl-shift-enter* to run the entire chunk. Alternatively, press the green play button at the top right of the chunk.
 
-Try creating your own code chunk. You can either type out the code or you can press *ctrl-alt-I* (or *cmd-option-I* for Mac). Below is an empty chunk but try creating your own and running it.
+Try creating your own code chunk. R figures out what is chunk by looking for the tripple left quote marks and curly braces around the language you are using. You can either type these out or you can press *ctrl-alt-I* (*cmd-option-I* for Mac) to make them automatically. Below is an empty chunk but try creating your own and running it.
 
 ```{r}
 
@@ -41,8 +41,7 @@ You'll notice the chunks in the code below have names. You can navigate by chunk
 
 # This chunk has a name!
 # These lines with '#' are comments. 
-# The computer ignores them but humans don't. 
-# You can use them to clarify code.
+# The computer ignores them but the humans don't.  
 #
 # It is good coding style to use comments 
 # to clarify any confusing lines.
@@ -51,9 +50,12 @@ You'll notice the chunks in the code below have names. You can navigate by chunk
 2 * 3 * 5  # Multiplication
 (2 ^ 3) ^ 5  # Exponentiation
 ```
-There's also a nice document outline button on the top right corner of the editor window. This will let you jump around this R markdown file with ease.
+There's also a nice document outline button on the top right corner of the editor window. This will let you jump around R markdown files with ease.
 
-We can save data into a variable to use later. This is the '=' notation. You'll often see '<-' used in R too. We'll try to use '<-' as it is clearer and most style guides recommend it. (But both your TA and professor come from programming traditions where '=' is the norm, so we'll slip up. And many people use the '=' notation, so should be able to read both.)
+
+Often you want to store data for later. To do this we can put it in a *variable*. Think of these as name-tags you attach to your data so you can find them later. 
+
+To do this you can use '='. You'll often see '<-' used in R too. We'll try to use '<-' as it is clearer and most style guides recommend it. Still, know both as many people use the '=' notation. (Your TA and professor come from programming traditions where '=' is the norm so we'll slip up and accidently use it a bunch.)
 
 ```{r}
 # Three variables
@@ -68,7 +70,7 @@ print(list_of_data)
 
 ```
 
-You can see all active variables in the *Environment* panel on your right. These will stay as they are until you change them.
+Variables can hold everything from numbers to strings of letters to huge dataframes. You can see all active variables in the *Environment* panel on your right. These will stay as they are until you change them.
 
 Finally, you can create a pdf of everything by pressing the Knit button at the top of the editor. You'll need to run the code chunk below to get that button to appear. You'll be turning in the original R Markdown file along with a pdf generated from knitr. Try this now. (If the button just looks like "preview" then choose "Knit to pdf" and save it.)
 
@@ -76,18 +78,18 @@ Finally, you can create a pdf of everything by pressing the Knit button at the t
 knitr::opts_chunk$set(echo = TRUE)  # Set up knitr
 ```
 
-That's all you need to know for this lab. We've skipped a lot but we'll introduce more concepts throughout the class and labs. As you code try your best to use a consistent style. It makes things more readable for others and is a good habit as you go further into science. The R tidyverse style guide is at https://style.tidyverse.org/. As you have time you can check it out to learn how to space and indent things. Otherwise explore R Studio. Don't be afraid to press buttons and mess around. 
+That's all you need to know for this lab. We've skipped a lot but we'll introduce more concepts throughout the class. As you code try to keep a consistent style. It makes things more readable for others and is a good habit as clear code becomes more and more important in science. The R tidyverse style guide is at https://style.tidyverse.org/. Check it out to learn how to space and indent things. 
 
-A list of R Studio hotkeys is at https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts. If you memorize all of these you are officially a pro coder and instantly get a Ph.D in computer science.
+Otherwise explore R Studio and don't be afraid to press buttons and mess around. A list of R Studio hotkeys is at https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts. If you memorize all of these you are officially a pro coder and instantly get a Ph.D in computer science.
 
 
 ## Lab Problem
 
-In a not-so-far-off dystopian future COVID-20 has appeared. It's everywhere and we only have one test for it: a PCR spit test. This test is magical and can perfectly detect any COVID material in any sample of spit.
+In a not-so-far-off dystopian future COVID-22 has appeared. It's everywhere and we only have one test for it: a PCR spit test. This test is magical and can perfectly detect any COVID material in any sample of spit.
 
 Sadly, magic is expensive and these tests are limited. While we'd like to administer the test to everybody there's simply not enough. Is there any way to do better than one test per person while still identifying everybody who has COVID? 
 
-One potential strategy is to pool *k* people's spit and test the pool. If even one person in the group has covid then the test will come back positive and we re-test all *k* people individually to find out who it is. Otherwise if the test came back negative we know nobody has COVID. In this way each pool that is positive generates *k+1* tests but a pool that is negative generates *1* test. 
+One potential strategy is to put *k* people's spit into one big spit-pool and then test the pool. If even one person in the group has covid then the test will come back positive and we re-test all *k* people individually to find out who it is. Otherwise if the test came back negative we know nobody has COVID. In this way each pool that is positive generates *k+1* tests but a pool that is negative generates *1* test. 
 
 This pooling strategy sounds promising, but does it really use fewer tests than than testing each person individually? And if so what *k* is the best pool size?
 
@@ -95,7 +97,7 @@ We can answer this through R. First we will simulate real life data by creating 
 
 ### Create Data
 
-Before we create the data we need to setup R. Running the code chunk below will give us all we need. If you are not on the surver then you might need to install the tidyverse package. In R studio you can do this by going to Tools > Install Packages.
+Before we create the data we need to setup R. Running the code chunk below will give us all we need. If you are not on the server then you might need to install the tidyverse package. In R studio you can do this by going to Tools > Install Packages.
 
 ```{r setup_r}
 library(tidyverse)  # Import the tidyverse package
@@ -117,7 +119,7 @@ pos_rate <- 0.05  # The rate at which people have COVID. This is now a variable 
 rbinom(1, size = k, prob = pos_rate)  # This randomly picks the number of people with covid in one pool from a binomial distribution.
 ```
 
-The *rbinom(1, size=k,prob=pos_rate)* simulates the number of people in one pool where each person has a *pos_rate* of having covid. As a reminder, something like *rbinom()* is a function. It takes in arguments and gives an output. This one stands for *random binomial* and will return a random draw from a binomial distribution. Try rerunning the *rbinom* line above a couple times. It won't always give the same value.
+The *rbinom(1, size=k,prob=pos_rate)* simulates the number of people in one pool where each person has a *pos_rate* of having covid. As a reminder, something like *rbinom()* is a function. It takes in arguments and gives an output. This one stands for *random binomial* and will return a random draw from a binomial distribution. Try rerunning the *rbinom* line above a couple times. It is random, so it won't always give the same value.
 
 If we replace 1 with another number then this will give a *vector* of numbers. We can use variables for the function arguements or write in the numbers directly.
 
@@ -142,7 +144,7 @@ Make a vector of 200 random draws from a binomial distribution. Let the size of 
 
 We can look up the documentation for a function by putting your cursor on a function and pressing *F1*. Or you can type *?function_name* and run it. The documentation will appear in the lower right-hand panel.
 
-Using the documentation on *rbinom* will pull up documentation for many binomial functions R has. There are four of them, each of which do different things.What are their names?
+The documentation on *rbinom* will also have information about R's other binomial functions. There are four of them, each of which do different things. What are their names?
 
 ```{r}
 ?rbinom
@@ -152,7 +154,7 @@ Using the documentation on *rbinom* will pull up documentation for many binomial
 
 ### Playing with the data
 
-Now we can make a list of the number of people with COVID in all 10000 pools and arrange the data in a *tibble*. (A tibble is a more modern dataframe-like object which works well with the tidyverse.)
+Now we can make a list of the number of people with COVID in all 10000 pools and arrange the data in a *tibble*. (A tibble is a more modern, leaner dataframe which works well with the tidyverse.)
 
 ```{r generate_samples}
 # Make a vector of all the pools, 
@@ -160,11 +162,11 @@ Now we can make a list of the number of people with COVID in all 10000 pools and
 positive <- rbinom(n = samps, size = k, prob = pos_rate) 
 
 # Arrange data in a tibble.
-# Look in your Environment panel and click pools to see what this data looks like.
+# Look in your Environment panel in the upper right and click pools to see what this data looks like.
 pools <- tibble(positive)  
 ```
 
-Next lets plot the number of people with covid in each pool. We will use the *ggplot2* package (which comes with the tidyverse) for visualization. If you need a refresher on it head here: https://r4ds.had.co.nz/data-visualisation.html
+Next lets plot the number of people with covid in each pool. We will use the *ggplot2* package (which comes with the tidyverse) for visualization. If you need a refresher on ggplot head to https://r4ds.had.co.nz/data-visualisation.html
 
 ```{r plot}
 # Make a plot and say what data we will plot
@@ -173,9 +175,9 @@ ggplot(data = pools, aes(x = positive)) +
 ```
 
 
-What we've just made is some simulated pool data that mimics what we expect from real life. We can now use this data to test our pooling strategy. First need to count up how many tests we have to do. 
+What we've just made is some simulated pool data that mimics what we expect from real life. We can now use this data to test our pooling strategy. 
 
-The code below makes a new column with the number of tests we would have to do for each pool. Any pool with at least one person with COVID will test positive, so in that pool we will have to retest everybody and will have a grand total of $1 + 10 = 11$ tests. Otherwise we spent one test for the entire pool, it came back negative, we know nobody has COVID, and we are done.
+First need to count up how many tests we expect to need for a given value of *k*. The code below makes a new column with the number of tests we would have to do for each pool. Any pool with at least one person with COVID will test positive, so in that pool we will have to retest everybody and will have a grand total of $1 + 10 = 11$ tests. Otherwise we spent one test for the entire pool, it came back negative, we know nobody has COVID, and we are done.
 
 ```{r count_tests}
 # 'mutate' adds two columns to the data frame, one called 'retest'
@@ -196,18 +198,18 @@ What does the *sign* function in mutate do? Use the documentation to find out. W
 
 ### Piping
 
-A quick aside for some common syntax: the pipe. This is one of the great boons of R that many other languages don't have. It makes a lot of code more readable. We could rewrite the mutate code above with pipe syntax 
+A quick aside for an R superpower: the pipe. This is one of the great features of R that many other languages don't have. Here is the above mutate code rewritten with pipes. 
 
 ```{r count_tests_pipe}
 pools <- pools %>% 
   mutate(retest = sign(positive) , tests = 1 + retest * k)  
 ```
 
-We can chain pipes together. The code below takes an imaginary number, then takes the real part of it, then takes the square root, then finally prints it.
+The power of pipes is that it makes code more readable by laying clear the flow of data. It shines when we need to apply multiple functions to a peice of data. The code below takes an imaginary number (our data) and does multiple manipulations to it.
 
 ```{r pipe_example}
 
-z = -10 + 3i  # The imaginary number 2 + 3i
+z = -10 + 3i  # The imaginary number -10 + 3i
 
 z %>%
   Re() %>%  # Take the real part...
@@ -224,7 +226,7 @@ a <- z %>%
 print(a)
 ```
 
-Piping is encouraged as it is more readable than the typical nested way of writing this.
+See that this is more readable than the typical nested way of coding this.
 
 ```{r non_pipe_version}
 
@@ -233,9 +235,23 @@ z = -10 + 3i
 a = log(abs(Re(z)), base = 10)
 
 ```
+
+And it is even more readable than a sequential saving-intermediate-steps-as-variables version.
+
+```{r pipe_example}
+
+z = -10 + 3i  # The imaginary number -10 + 3i
+
+z = Re(z)  # Take the real part...
+z = abs(z) # then take the absolute value...
+z = log(z, base = 10)  # then take log base ten.
+
+print(z)
+```
+
 #### Problem 4
 
-Take the pipe code and modify it to take the square root after the absolute value but before taking the log. Also use the natural log instead of base 10. You might have to use Google to figure our how to do this. (But half of programming is being great at looking things up.) You should get 1.151293 as your final answer.
+Take the pipe code and modify it to take the square root after the absolute value but before taking the log. Also use the natural log instead of base 10. You might need Google to figure our how to do this. (But half of programming is being great at looking things up.) You should get 1.151293 as your final answer.
 
 ```{r problem_4}
 
@@ -297,7 +313,7 @@ Try changing the pool size in the chunk above to see how the mean number of test
 
 Now armed with the *calc_test* function we can figure out which *k* is best. This is a simple matter of running through a bunch of possible pool sizes and recording the mean tests needed. Because each run is random we will take the average of 100 runs.
 
-For now you don't need to understand the nitty gritty of the code. But if you're feeling daring then use the documentation, view the variables that are made, and try to reverse engineer the code.
+For now you don't need to understand the nitty gritty of the code. But if you're feeling daring then use the documentation, view the variables that are made, and try to reverse engineer what has happened.
 
 
 ```{r compare_ks}
