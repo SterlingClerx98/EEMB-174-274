@@ -19,7 +19,7 @@ library(tidyverse)
 # individual has covid, they have a chance of having cold symptoms
 
 # fixed parameters for the example
-probSgC <- 0.25 # probability of symptoms given covid
+probSgC <- 0.3 # probability of symptoms given covid
 
 
 # Prepare our dataframes 
@@ -73,7 +73,7 @@ server <- function(input, output) {
                                           aes(x=probSgNC, y = probCgS)) + 
             geom_line()+
             scale_y_continuous( limits=c(0,1))+
-            labs( x="Probability of having a colds" , y="Probability of covid given symptoms")
+            labs( x="Probability of having a cold" , y="Probability of covid given symptoms")
     })
       
 }
