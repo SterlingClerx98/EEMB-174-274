@@ -32,8 +32,8 @@ Breakout: Experience with chance
 
 
 
-## Baye's Rule 
-The general form of Baye's Rule is shown here:
+## Bayes' Rule 
+The general form of Bayes' Rule is shown here:
 $$
 Pr(A|B) = \frac{Pr(B|A) Pr(A)}{Pr(B)}
 $$
