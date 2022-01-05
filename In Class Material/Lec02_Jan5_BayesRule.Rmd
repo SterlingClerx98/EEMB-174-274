@@ -14,11 +14,11 @@ library(rethinking)
 
 # Understanding Bayes' Rule
 
-Goals for today:
-* Learn the form of Bayes' Rule
-* Develop an understanding of how the components of Bayes' Rule affect the posterior probability
-* Launch the shiny app in R and manipulate the input
-* Write out your interpretation of the calculation
+Goals for today:   
+* Learn the form of Bayes' Rule  
+* Develop an understanding of how the components of Bayes' Rule affect the posterior probability  
+* Launch the shiny app in R and manipulate the input   
+* Write out your interpretation of the calculation  
 
 
 ## Chance, probability, and the butterfly effect
@@ -32,7 +32,7 @@ Breakout: Experience with chance
 
 
 
-##Baye's Rule 
+## Baye's Rule 
 The general form of Baye's Rule is shown here:
 $$
 Pr(A|B) = \frac{Pr(B|A) Pr(A)}{Pr(B)}
