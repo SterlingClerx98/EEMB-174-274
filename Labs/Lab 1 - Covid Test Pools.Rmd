@@ -72,7 +72,7 @@ print(list_of_data)
 
 Variables can hold everything from numbers to strings of letters to huge dataframes. You can see all active variables in the *Environment* panel on your right. These will stay as they are until you change them.
 
-Finally, you can create a pdf of everything by pressing the Knit button at the top of the editor. You'll need to run the code chunk below to get that button to appear. You'll be turning in the original R Markdown file along with a pdf generated from knitr. Try this now. (If the button just looks like "preview" then choose "Knit to pdf" and save it.)
+Finally, you can create a pdf of everything by pressing the Knit button at the top left of the editor. You'll need to run the code chunk below to get that button to appear. You'll be turning in the original R Markdown file along with a pdf generated from knitr. Try this now. (If the button just looks like "preview" then choose "Knit to pdf" and save it.)
 
 ```{r knit, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)  # Set up knitr
@@ -101,7 +101,6 @@ Before we create the data we need to setup R. Running the code chunk below will 
 
 ```{r setup_r}
 library(tidyverse)  # Import the tidyverse package
-knitr::opts_chunk$set(echo = TRUE)  # ready knitr 
 ```
 
 Now we can simulate some data. We will first create a bunch of pools and fill them with people. We will call the pools "samples," as each are samples of our data.
@@ -112,14 +111,14 @@ samps <- 10000  # The total number of pools we test.
 
 ```
 
-Some of these pools will have people that test positive and some will not. Because each person in the pool has the same, independent, chance of having COVID we can get the number of sick people in the pool by drawing from a bionomial distribution. You you don't remember what the bionomial distribution is or why we use it see this video: https://www.youtube.com/watch?v=8idr1WZ1A7Q&t=50s&ab_channel=3Blue1Brown. (This video also builds up Bayesian ideas, so it and the channel's other probability videos are worth a watch even if you do remember.) 
+Some of these pools will have people that test positive and some will not. Because each person in the pool has the same, independent, chance of having COVID we can get the number of sick people in the pool by drawing from a bionomial distribution. You you don't remember what the bionomial distribution is or why we use it see this video: https://www.youtube.com/watch?v=8idr1WZ1A7Q&ab_channel=3Blue1Brown. (This video also builds up Bayesian ideas, so it's worth a watch even if you do remember. They also have a Baye's Theorem video if you are still confused by that: https://www.youtube.com/watch?v=HZGCoVF3YvM&ab_channel=3Blue1Brown) 
 
 ```{r random_draw_example}
 pos_rate <- 0.05  # The rate at which people have COVID. This is now a variable and is saved.
 rbinom(1, size = k, prob = pos_rate)  # This randomly picks the number of people with covid in one pool from a binomial distribution.
 ```
 
-The *rbinom(1, size=k,prob=pos_rate)* simulates the number of people in one pool where each person has a *pos_rate* of having covid. As a reminder, something like *rbinom()* is a function. It takes in arguments and gives an output. This one stands for *random binomial* and will return a random draw from a binomial distribution. Try rerunning the *rbinom* line above a couple times. It is random, so it won't always give the same value.
+The *rbinom(1, size=k, prob=pos_rate)* simulates the number of people in one pool where each person has a *pos_rate* of having covid. As a reminder, something like *rbinom()* is a function. It takes in arguments and gives an output. This one stands for *random binomial* and will return a random draw from a binomial distribution. Try rerunning the *rbinom* line above a couple times. It is random, so it won't always give the same value.
 
 If we replace 1 with another number then this will give a *vector* of numbers. We can use variables for the function arguements or write in the numbers directly.
 
@@ -205,7 +204,7 @@ pools <- pools %>%
   mutate(retest = sign(positive) , tests = 1 + retest * k)  
 ```
 
-The power of pipes is that it makes code more readable by laying clear the flow of data. It shines when we need to apply multiple functions to a peice of data. The code below takes an imaginary number (our data) and does multiple manipulations to it.
+Pipes lay clear the flow of data. They shine most when we need to apply multiple functions to a peice of data. The code below takes an imaginary number (our data) and does multiple manipulations to it.
 
 ```{r pipe_example}
 
@@ -236,9 +235,9 @@ a = log(abs(Re(z)), base = 10)
 
 ```
 
-And it is even more readable than a sequential saving-intermediate-steps-as-variables version.
+And it is also more readable than a sequential saving-intermediate-steps-as-variables method.
 
-```{r pipe_example}
+```{r sequential_example}
 
 z = -10 + 3i  # The imaginary number -10 + 3i
 
@@ -311,7 +310,7 @@ Try changing the pool size in the chunk above to see how the mean number of test
 
 ### The best pool size
 
-Now armed with the *calc_test* function we can figure out which *k* is best. This is a simple matter of running through a bunch of possible pool sizes and recording the mean tests needed. Because each run is random we will take the average of 100 runs.
+Now armed with the *calc_test* function we can figure out which *k* is best. To do this we sweep through many possible pool sizes and record the mean number of tests needed. Because each run is random we will take the average of 100 runs for each pool size.
 
 For now you don't need to understand the nitty gritty of the code. But if you're feeling daring then use the documentation, view the variables that are made, and try to reverse engineer what has happened.
 
